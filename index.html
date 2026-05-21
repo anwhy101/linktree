@@ -3,130 +3,300 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Your Organization — Links</title>
+  <title>CMHW — IIT Kanpur</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Nunito:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:        #0d0d0d;
-      --card:      #161616;
-      --border:    #2a2a2a;
-      --accent:    #e8ff47;
-      --text:      #f0f0f0;
-      --muted:     #888;
-      --radius:    14px;
+      --bg:        #fdf8f2;
+      --surface:   #ffffff;
+      --border:    #edddd0;
+      --accent:    #c17f5a;
+      --accent2:   #7a9e8e;
+      --accent3:   #d4956a;
+      --text:      #3a2e28;
+      --muted:     #9a8578;
+      --soft:      #f5ede4;
+      --soft2:     #eef4f1;
+      --radius:    18px;
     }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
     body {
       background: var(--bg);
       color: var(--text);
-      font-family: 'DM Sans', sans-serif;
+      font-family: 'Nunito', sans-serif;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 48px 20px 80px;
+      padding: 0 0 80px;
+      position: relative;
+      overflow-x: hidden;
     }
-    body::before {
+
+    /* Warm top banner with botanical SVG */
+    .hero-banner {
+      width: 100%;
+      background: linear-gradient(135deg, #f5e6d8 0%, #e8f0eb 60%, #f0e8df 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px 24px 32px;
+      position: relative;
+      overflow: hidden;
+      margin-bottom: 0;
+    }
+
+    /* Subtle botanical decorations - pure CSS/SVG, no external images */
+    .hero-banner::before {
       content: '';
-      position: fixed; inset: 0;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-      pointer-events: none; z-index: 0;
-    }
-    .container {
-      position: relative; z-index: 1;
-      width: 100%; max-width: 480px;
-      display: flex; flex-direction: column; align-items: center;
-    }
-    .avatar {
-      width: 88px; height: 88px;
+      position: absolute;
+      top: -20px; right: -20px;
+      width: 180px; height: 180px;
+      background: radial-gradient(circle, rgba(193,127,90,0.08) 0%, transparent 70%);
       border-radius: 50%;
-      background: var(--card);
-      border: 2px solid var(--border);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 2.4rem;
-      margin-bottom: 20px;
-      animation: pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
     }
-    .name {
-      font-family: 'Syne', sans-serif;
-      font-size: 1.6rem;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      text-align: center;
+
+    .hero-banner::after {
+      content: '';
+      position: absolute;
+      bottom: -10px; left: -20px;
+      width: 140px; height: 140px;
+      background: radial-gradient(circle, rgba(122,158,142,0.10) 0%, transparent 70%);
+      border-radius: 50%;
+    }
+
+    /* Leaf decorations using SVG inline */
+    .leaf-deco {
+      position: absolute;
+      opacity: 0.18;
+      pointer-events: none;
+    }
+
+    .leaf-deco.top-right {
+      top: 10px; right: 16px;
+      width: 70px;
+    }
+
+    .leaf-deco.bottom-left {
+      bottom: 8px; left: 12px;
+      width: 55px;
+      transform: scaleX(-1) rotate(-20deg);
+    }
+
+    .logo-wrap {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      background: white;
+      border: 2px solid rgba(193,127,90,0.25);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(193,127,90,0.15);
+      animation: pop 0.6s cubic-bezier(0.175,0.885,0.32,1.275) both;
+      position: relative; z-index: 1;
+    }
+
+    .logo-wrap img {
+      width: 78px; height: 78px;
+      object-fit: contain;
+    }
+
+    .badge {
+      font-size: 0.62rem;
+      font-weight: 600;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      background: rgba(122,158,142,0.12);
+      border: 1px solid rgba(122,158,142,0.25);
+      padding: 3px 12px;
+      border-radius: 99px;
+      margin-bottom: 10px;
+      position: relative; z-index: 1;
       animation: fadeUp 0.5s 0.1s both;
     }
-    .tagline {
-      color: var(--muted);
-      font-size: 0.9rem;
-      margin-top: 6px;
+
+    .org-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.1rem;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: -0.3px;
       text-align: center;
+      line-height: 1;
+      position: relative; z-index: 1;
       animation: fadeUp 0.5s 0.15s both;
     }
-    .divider {
-      width: 40px; height: 3px;
-      background: var(--accent);
-      border-radius: 99px;
-      margin: 28px 0 24px;
+
+    .tagline {
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--muted);
+      margin-top: 7px;
+      text-align: center;
+      letter-spacing: 0.03em;
+      line-height: 1.5;
+      max-width: 260px;
+      position: relative; z-index: 1;
       animation: fadeUp 0.5s 0.2s both;
     }
+
+    /* Warm quote strip */
+    .quote-strip {
+      width: 100%;
+      background: linear-gradient(90deg, var(--accent2), #5d8a7a);
+      color: white;
+      text-align: center;
+      padding: 11px 24px;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 0.04em;
+      font-style: italic;
+      animation: fadeUp 0.5s 0.25s both;
+    }
+
+    /* Main content */
+    .container {
+      width: 100%; max-width: 480px;
+      padding: 24px 20px 0;
+      display: flex; flex-direction: column; align-items: center;
+      position: relative; z-index: 1;
+    }
+
+    /* Section labels */
+    .section-label {
+      font-size: 0.62rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      width: 100%;
+      padding: 18px 2px 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      animation: fadeUp 0.4s both;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, var(--border), transparent);
+    }
+
+    /* Link cards */
     .links {
       width: 100%;
-      display: flex; flex-direction: column; gap: 12px;
+      display: flex; flex-direction: column; gap: 10px;
     }
+
     .link-item {
-      display: flex; align-items: center; gap: 16px;
-      background: var(--card);
+      display: flex; align-items: center; gap: 14px;
+      background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px 20px;
+      padding: 14px 18px;
       text-decoration: none;
       color: var(--text);
-      transition: transform 0.18s ease, border-color 0.18s ease, background 0.18s ease;
+      transition: all 0.22s ease;
       animation: fadeUp 0.4s both;
+      box-shadow: 0 1px 6px rgba(193,127,90,0.06);
+      position: relative;
+      overflow: hidden;
     }
+
+    .link-item::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(193,127,90,0.04), rgba(122,158,142,0.04));
+      opacity: 0;
+      transition: opacity 0.22s ease;
+    }
+
     .link-item:hover {
-      transform: translateY(-2px) scale(1.01);
-      border-color: var(--accent);
-      background: #1e1e1e;
+      transform: translateY(-2px);
+      border-color: rgba(193,127,90,0.35);
+      box-shadow: 0 6px 24px rgba(193,127,90,0.12);
     }
-    .link-item:hover .link-arrow {
-      transform: translateX(4px);
+
+    .link-item:hover::after { opacity: 1; }
+
+    .link-item:hover .arrow {
+      transform: translateX(5px);
       color: var(--accent);
     }
-    .link-icon {
-      font-size: 1.4rem;
-      width: 36px; height: 36px;
+
+    .icon-wrap {
+      width: 42px; height: 42px;
+      border-radius: 12px;
       display: flex; align-items: center; justify-content: center;
-      background: #1f1f1f;
-      border-radius: 8px;
+      flex-shrink: 0;
+      font-size: 1.2rem;
+    }
+
+    .icon-warm  { background: #fdf0e6; border: 1px solid #f0d9c8; }
+    .icon-green { background: #edf4f1; border: 1px solid #cfe0d8; }
+    .icon-blue  { background: #edf1f7; border: 1px solid #ccd6e8; }
+
+    .link-text { flex: 1; }
+
+    .link-title {
+      font-weight: 600;
+      font-size: 0.88rem;
+      color: var(--text);
+    }
+
+    .link-desc {
+      font-size: 0.72rem;
+      color: var(--muted);
+      margin-top: 2px;
+      font-weight: 400;
+    }
+
+    .tag {
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 99px;
       flex-shrink: 0;
     }
-    .link-text { flex: 1; }
-    .link-title { font-weight: 600; font-size: 0.95rem; }
-    .link-desc { font-size: 0.78rem; color: var(--muted); margin-top: 2px; }
-    .link-arrow {
-      color: var(--muted);
-      font-size: 1rem;
-      transition: transform 0.18s ease, color 0.18s ease;
+    .tag-online  { background: #edf4f1; color: #4a8a72; border: 1px solid #c0ddd4; }
+    .tag-offline { background: #fdf0e6; color: #b07040; border: 1px solid #e8cdb0; }
+
+    .arrow {
+      color: #cbbfb5;
+      font-size: 0.85rem;
+      transition: all 0.22s ease;
+      flex-shrink: 0;
     }
-    .section-label {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      width: 100%;
-      padding: 8px 4px 4px;
-      animation: fadeUp 0.4s both;
-    }
+
+    /* Footer */
     .footer {
-      margin-top: 48px;
-      font-size: 0.72rem;
-      color: #444;
+      margin-top: 36px;
       text-align: center;
-      animation: fadeUp 0.4s 0.5s both;
+      animation: fadeUp 0.4s 0.6s both;
+      padding: 0 20px;
     }
+
+    .footer-text {
+      font-size: 0.7rem;
+      color: #c0b4aa;
+      line-height: 1.7;
+    }
+
+    .footer-heart {
+      color: var(--accent);
+      font-size: 0.8rem;
+    }
+
+    /* Animations */
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(16px); }
       to   { opacity: 1; transform: translateY(0); }
@@ -138,79 +308,116 @@
   </style>
 </head>
 <body>
+
+<!-- Hero Banner -->
+<div class="hero-banner">
+
+  <!-- Botanical leaf SVG top right -->
+  <svg class="leaf-deco top-right" viewBox="0 0 100 130" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M50 120 C50 120 10 80 15 40 C20 10 50 5 50 5 C50 5 80 10 85 40 C90 80 50 120 50 120Z" fill="#7a9e8e"/>
+    <line x1="50" y1="5" x2="50" y2="120" stroke="#5d8a7a" stroke-width="1.5"/>
+    <line x1="50" y1="40" x2="25" y2="60" stroke="#5d8a7a" stroke-width="1"/>
+    <line x1="50" y1="55" x2="72" y2="72" stroke="#5d8a7a" stroke-width="1"/>
+    <line x1="50" y1="70" x2="28" y2="85" stroke="#5d8a7a" stroke-width="1"/>
+  </svg>
+
+  <!-- Botanical leaf SVG bottom left -->
+  <svg class="leaf-deco bottom-left" viewBox="0 0 80 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M40 100 C40 100 5 65 8 32 C12 8 40 4 40 4 C40 4 68 8 72 32 C75 65 40 100 40 100Z" fill="#c17f5a"/>
+    <line x1="40" y1="4" x2="40" y2="100" stroke="#a86840" stroke-width="1.5"/>
+    <line x1="40" y1="30" x2="18" y2="50" stroke="#a86840" stroke-width="1"/>
+    <line x1="40" y1="50" x2="60" y2="65" stroke="#a86840" stroke-width="1"/>
+  </svg>
+
+  <div class="logo-wrap">
+    <img src="https://www.iitk.ac.in/new/images/IITKanpur-logo.png"
+         alt="IIT Kanpur Logo"
+         onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:2rem\'>🌿</span>'">
+  </div>
+
+  <div class="badge">IIT Kanpur</div>
+  <div class="org-name">CMHW</div>
+  <div class="tagline">Center for Mental Health and Wellbeing</div>
+</div>
+
+<!-- Quote strip -->
+<div class="quote-strip">
+  "You don't have to face it alone — we're here for you."
+</div>
+
+<!-- Links -->
 <div class="container">
-
-  <div class="avatar">🏢</div>
-
-  <div class="name">Your Organization</div>
-  <div class="tagline">Official links &amp; resources</div>
-
-  <div class="divider"></div>
-
   <div class="links">
 
-    <div class="section-label" style="animation-delay:0.22s">Quick Access</div>
+    <div class="section-label" style="animation-delay:0.28s">Explore</div>
 
-    <a class="link-item" href="https://your-website.com" target="_blank" style="animation-delay:0.25s">
-      <div class="link-icon">🌐</div>
+    <a class="link-item" href="https://www.iitk.ac.in/counsel/" target="_blank" style="animation-delay:0.3s">
+      <div class="icon-wrap icon-warm">🌿</div>
       <div class="link-text">
         <div class="link-title">Official Website</div>
-        <div class="link-desc">Visit our main site</div>
+        <div class="link-desc">Learn about our services & resources</div>
       </div>
-      <div class="link-arrow">→</div>
+      <div class="arrow">→</div>
     </a>
 
-    <a class="link-item" href="https://wa.me/91XXXXXXXXXX" target="_blank" style="animation-delay:0.3s">
-      <div class="link-icon">💬</div>
+    <a class="link-item" href="https://www.iitk.ac.in/counsel/team.php" target="_blank" style="animation-delay:0.34s">
+      <div class="icon-wrap icon-green">👥</div>
       <div class="link-text">
-        <div class="link-title">WhatsApp Us</div>
-        <div class="link-desc">Chat with our team directly</div>
+        <div class="link-title">Meet the Team</div>
+        <div class="link-desc">Our counselors & mental health professionals</div>
       </div>
-      <div class="link-arrow">→</div>
+      <div class="arrow">→</div>
     </a>
 
-    <a class="link-item" href="https://instagram.com/yourhandle" target="_blank" style="animation-delay:0.35s">
-      <div class="link-icon">📸</div>
+    <div class="section-label" style="animation-delay:0.38s">Book an Appointment</div>
+
+    <a class="link-item" href="https://www.iitk.ac.in/counsel/appointment_self.php" target="_blank" style="animation-delay:0.41s">
+      <div class="icon-wrap icon-warm">📅</div>
       <div class="link-text">
-        <div class="link-title">Instagram</div>
-        <div class="link-desc">Follow us for updates</div>
+        <div class="link-title">Self Appointment</div>
+        <div class="link-desc">Regular counseling session</div>
       </div>
-      <div class="link-arrow">→</div>
+      <div class="arrow">→</div>
     </a>
 
-    <div class="section-label" style="animation-delay:0.38s">Resources</div>
-
-    <a class="link-item" href="https://forms.google.com/your-form" target="_blank" style="animation-delay:0.4s">
-      <div class="link-icon">📋</div>
+    <a class="link-item" href="https://www.iitk.ac.in/counsel/appointment_SST.php" target="_blank" style="animation-delay:0.45s">
+      <div class="icon-wrap icon-green">💬</div>
       <div class="link-text">
-        <div class="link-title">Registration Form</div>
-        <div class="link-desc">Sign up / register here</div>
+        <div class="link-title">Single Therapy Session</div>
+        <div class="link-desc">One-time focused session</div>
       </div>
-      <div class="link-arrow">→</div>
+      <span class="tag tag-online">Online</span>
+      <div class="arrow">→</div>
     </a>
 
-    <a class="link-item" href="https://drive.google.com/your-brochure" target="_blank" style="animation-delay:0.45s">
-      <div class="link-icon">📄</div>
+    <a class="link-item" href="https://www.iitk.ac.in/counsel/appointment_SST_Online.php" target="_blank" style="animation-delay:0.49s">
+      <div class="icon-wrap icon-blue">🏛️</div>
       <div class="link-text">
-        <div class="link-title">Brochure / Prospectus</div>
-        <div class="link-desc">Download our latest brochure</div>
+        <div class="link-title">Single Therapy Session</div>
+        <div class="link-desc">One-time focused session</div>
       </div>
-      <div class="link-arrow">→</div>
+      <span class="tag tag-offline">Offline</span>
+      <div class="arrow">→</div>
     </a>
 
-    <a class="link-item" href="mailto:contact@yourorg.com" style="animation-delay:0.5s">
-      <div class="link-icon">✉️</div>
+    <a class="link-item" href="https://www.iitk.ac.in/counsel/referral.php" target="_blank" style="animation-delay:0.53s">
+      <div class="icon-wrap icon-warm">🔗</div>
       <div class="link-text">
-        <div class="link-title">Email Us</div>
-        <div class="link-desc">contact@yourorg.com</div>
+        <div class="link-title">Referral Appointment</div>
+        <div class="link-desc">Referred by faculty or staff</div>
       </div>
-      <div class="link-arrow">→</div>
+      <div class="arrow">→</div>
     </a>
 
   </div>
 
-  <div class="footer">© 2025 Your Organization · All rights reserved</div>
-
+  <div class="footer">
+    <div class="footer-text">
+      Made with <span class="footer-heart">♥</span> for the IIT Kanpur community<br>
+      Indian Institute of Technology Kanpur · © 2025 CMHW
+    </div>
+  </div>
 </div>
+
 </body>
 </html>
